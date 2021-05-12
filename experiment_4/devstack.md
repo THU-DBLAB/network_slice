@@ -168,7 +168,7 @@ $ wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd
 
 - ## Associate Floating IP
 
-**Project -> Compute -> Instances -> Launch Instance** 
+**Project -> Compute -> Instances -> Launch Instance -> Associate Floating IP** 
 
 <p align="center">
     <img style="border-style:1px;border-style:double;border-color:#8C8C8C" src="https://imgur.com/W8cExb2.png" width="800"/>
@@ -180,8 +180,9 @@ $ wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd
 
 ```bash=
 $ ssh -i /path/my-key-pair.pem ubuntu@IP-address
-
+# set DNS
 $ sudo vim /etc/resolv.conf
+# set nameserver 8.8.8.8
 ```
 
 <p align="center">
@@ -190,7 +191,7 @@ $ sudo vim /etc/resolv.conf
 
 
 ```bash=
-$ sduo apt update
+$ sudo apt update
 $ sudo apt install iperf3 -y
 ```
 
@@ -204,7 +205,6 @@ $ sudo apt install iperf3 -y
 # or run a web server
 $ sudo apt install apache2
 $ sudo mv /var/www/html/index.html /var/www/html/index.html.backup
-
 $ sudo vim /var/www/html/index.html
 ```
 - #### index.html
