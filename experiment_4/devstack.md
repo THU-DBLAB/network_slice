@@ -27,6 +27,7 @@ $ sudo apt update && sudo apt upgrade -y
 $ sudo apt install -y vim net-tools git
 ```
 ```bash=
+# add user name=stack
 $ sudo useradd -s /bin/bash -d /opt/stack -m stack
 $ echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
 $ sudo su - stack
@@ -36,8 +37,16 @@ $ sudo su - stack
 $ git clone https://opendev.org/openstack/devstack
 $ cd devstack
 $ cp samples/local.conf .
+
+# find the device's IPv4
+$ ifconfig 
+
 $ vim local.conf
 ```
+
+<p align="center">
+    <img style="border-style:1px;border-style:double;border-color:#8C8C8C" src="https://imgur.com/YswSWc0.png" width="500"/>
+</p>
 
 - #### local.conf
 ```text
@@ -57,8 +66,15 @@ $ vim inc/python
 
 ```text
 # at line 198 add --ignore-installed
-$cmd_pip $upgrade \ --> $cmd_pip $upgrade --ignore-installed \
+# Turn
+$cmd_pip $upgrade \
+# into 
+$cmd_pip $upgrade --ignore-installed \
 ```
+<p align="center">
+    <img style="border-style:1px;border-style:double;border-color:#8C8C8C" src="https://imgur.com/wIwYQ3G.png" width="500"/>
+</p>
+
 - ### **Install devstack**
 ```bash=
 $ sudo chown -R stack:stack /opt/stack
@@ -98,7 +114,7 @@ $ ./stack.sh
 
 ---
 
-- ## Add the ICMP, TCP ,UDP Ingress/Engress Security Group
+- ## Add Key Pairs
 
 **Project -> Compute -> Key pairs -> Create Key Pair** 
 
@@ -132,7 +148,6 @@ $ wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd
     * Instance Name = Name
     * Count = 1
 2.  Source
-    * Volume Size (GB) = 5
     * Allocated -> ubuntu
 3.  Flavor
     * Allocated -> select one
