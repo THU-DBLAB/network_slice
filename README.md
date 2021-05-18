@@ -9,6 +9,7 @@ This note is for the [:link:page](http://140.117.164.12/mbat_cctu/%E8%AA%B2%E5%A
 
 ## :point_right: Environment requirement
 * ####  ubuntu &nbsp;&nbsp; [`20.04`](http://ftp.ubuntu-tw.org/ubuntu-releases/20.04.2.0/)
+* * **disk &nbsp;&nbsp;&nbsp;&nbsp;```20 GB```**
 * ####  mininet &nbsp; [`2.3.0`](https://github.com/mininet/mininet)
 * ####  ryu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [`v4.34 `](https://github.com/faucetsdn/ryu)
 
@@ -17,7 +18,7 @@ This note is for the [:link:page](http://140.117.164.12/mbat_cctu/%E8%AA%B2%E5%A
 - [x] **[Experiment 1 :link:](./experiment_1/README.md)**
 - [x] **[Experiment 2 :link:](./experiment_2/README.md)**
 - [x] **[Experiment 3 :link:](./experiment_3/README.md)**
-- [x] **[Experiment 4 :link:](./experiment_4/README.md)**
+- [x] **[Experiment 4 :link:](./experiment_4/devstack.md)**
 
 ---
 
@@ -25,8 +26,8 @@ This note is for the [:link:page](http://140.117.164.12/mbat_cctu/%E8%AA%B2%E5%A
 - ### Initialize ubuntu 
 
 ```bash
-$ sudo apt-get update
-$ sudo apt-get upgrade
+# update and upgrade
+$ sudo apt-get update && sudo apt-get upgrade
 
 # reboot
 $ sudo reboot
@@ -35,6 +36,7 @@ $ sudo reboot
 - ### Install openvswitch
 
 ```bash
+# install openvswitch
 $ sudo apt install openvswitch-switch
 ```
 
@@ -61,6 +63,7 @@ $ sudo ./mininet/util/install.sh -n3
 - ### Check the mininet
 
 ```bash
+# open mininet
 $ sudo mn 
 
 # leave mininet
@@ -70,6 +73,7 @@ $ exit
 - ### Ryu Pre-install
 
 ```bash
+# install ryu require packages
 $ sudo apt-get install -y libxml2-dev libxslt1-dev libffi-dev libssl-dev zlib1g-dev python3-pip python3-eventlet python3-routes python3-webob python3-paramiko gcc python3-dev 
 $ sudo pip3 install msgpack-python eventlet==0.15.2
 $ sudo pip3 install six --upgrade
@@ -79,6 +83,7 @@ $ sudo pip3 install oslo.config q --upgrade
 - ### Install ryu
 
 ```bash
+# install ryu controller
 $ cd ~
 $ git clone https://github.com/faucetsdn/ryu
 $ cd ryu
@@ -119,7 +124,7 @@ $ sudo apt-get remove openvswitch-common openvswitch-switch openvswitch-pki open
 
 # if ovs doesn't work, you can try this to start ovs
 $ sudo /usr/share/openvswitch/scripts/ovs-ctl start
-#or
+# or
 $ sudo service openvswitch-switch restart
 ```
 

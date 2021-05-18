@@ -80,7 +80,8 @@ $ sudo mn --mac --switch ovs,protocols=OpenFlow13 --controller remote
     <img style="border-style:1px;border-style:double;border-color:#8C8C8C" src="https://github.com/xxionhong/network_slice/blob/main/experiment_1/img/2020-10-15%20205459.jpg?raw=true" width="400"/>
 </p>
 
-[:pushpin::link: EtherType](https://en.wikipedia.org/wiki/EtherType)
+[:link: ARP](https://en.wikipedia.org/wiki/Address_Resolution_Protocol)
+[:link: EtherType](https://en.wikipedia.org/wiki/EtherType)
 
 ### `In Terminal`
 ```bash
@@ -259,3 +260,16 @@ $ iperf -c 10.0.0.1 -i 2
 <p align="center">
     <img style="border-style:1px;border-style:double;border-color:#8C8C8C" src="https://github.com/xxionhong/network_slice/blob/main/experiment_1/img/2021-01-06%20add.jpg?raw=true" width="600"/>
 </p>
+
+---
+
+# :bulb: Hint :
+1.  ```$ sudo ryu-manager --verbose ryu.app.ofctl_rest``` 
+- where ```--verbose``` show debug output, ```ryu.app.ofctl_rest``` start ryu with restful function [:link:](https://ryu.readthedocs.io/en/latest/app/ofctl_rest.html)
+
+2. ```$ sudo mn --mac --switch ovs,protocols=OpenFlow13 --controller remote```
+- where ```--mac``` is for automatically set host MACs, ```--switch ovs,protocols=OpenFlow13``` set the running switch as Openvswitch and set protocol as OpenFlow13, ```--controller remote``` set controller as remote for ryu.
+
+3.  **[ovs-actions :link:](https://man7.org/linux/man-pages/man7/ovs-actions.7.html)**
+
+4. **[OpenFlow13 :link:](https://opennetworking.org/wp-content/uploads/2013/04/openflow-spec-v1.3.1.pdf)**

@@ -89,7 +89,32 @@ $ sudo ovs-vsctl -- --all destroy QoS -- --all destroy Queue
 $ sudo ovs-vsctl remove qos {uuid} queue {queue_num}
 $ sudo ovs-vsctl destroy queue {uuid}
 ```
-:pushpin: OVS does not Support yet
+
+---
+
+# :bulb: Hint :
+
+- Qos Table
+
+|QoS type|Description|Configuration|
+|---|----|--|
+|linux-htb|Linux **hierarchy token bucket** classifier. See [tc-htb(8)](http://linux.die.net/man/8/tc-htb ) and the [HTB manual](http://luxik.cdi.cz/~devik/qos/htb/manual/userg.htm ) for information on how this classifier works and how to configure it.|max-rate|
+|linux-hfsc|Linux **Hierarchical Fair Service Curve** classifier. [See](http://linux-ip.net/articles/hfsc.en/) for information on how this classifier works.|max-rate|
+|linux-sfq|Linux **Stochastic Fairness Queueing** classifier. See [tc-sfq(8)](http://linux.die.net/man/8/tc-sfq) for information on how this classifier works.|perturb, quantum|
+|linux-codel|Linux **Controlled Delay** classifier. See [tc-codel(8)](http://man7.org/linux/man-pages/man8/tc-codel.8.html) for information on how this classifier works.
+|linux-fq_codel|Linux **Fair Queuing with Controlled Delay** classifier. See [tc-fq_codel(8)](http://man7.org/linux/man-pages/man8/tc-fq_codel.8.html) for information on how this classifier works.
+|linux-netem|Linux **Network Emulator** classifier. See [tc-netem(8)](http://man7.org/linux/man-pages/man8/tc-netem.8.html) for information on how this classifier works.|latency, limit, loss|
+|linux-noop|Linux **No operation.** By default, Open vSwitch manages QoS on all of its configured ports. This can be helpful, but sometimes administrators prefer to use other software to manage QoS. This type prevents Open vSwitch from changing the QoS configuration for a port.
+|egress-policer|A DPDK egress policer algorithm using the **DPDK rte_meter library**. The rte_meter library provides an implementation which allows the metering and policing of traffic. |cir, cbs, eir, ebs|
+|trtcm-policer|A DPDK egress policer algorithm using **RFC 4115’s Two-Rate, Three-Color marker**. It’s a two-level hierarchical policer which first does a color-blind marking of the traffic at the queue level, followed by a color-aware marking at the port level. At the end traffic marked as Green or Yellow is forwarded, Red is dropped. For details on how traffic is marked, see [RFC 4115](https://datatracker.ietf.org/doc/html/rfc4115). 
+- **[ovs-vswitchd :link:](https://man7.org/linux/man-pages/man5/ovs-vswitchd.conf.db.5.html)**
+- **[PICA8 Configuring QoS scheduler :link:](https://docs.pica8.com/display/PicOS211sp/Configuring+QoS+scheduler)**
+- **[基於Open vSwitch的傳統限速和SDN限速:link:](https://www.sdnlab.com/23289.html)**
+- **[Open vSwitch之QoS的實現 :link:](https://www.sdnlab.com/19208.html)**
+- **[OVS QoS流量控制 (DPDK):link:](https://blog.csdn.net/sinat_20184565/article/details/93376574)**
+
+---
+:pushpin: **OVS does not Support !!! Only for PICA8**
 
 ```bash
 # Round Robin (example)
@@ -118,10 +143,6 @@ $ sudo ovs-vsctl -- set Port s1-eth4 qos=@newqos -- \
 --id=@q2 create Queue other-config=max-rate=100000000,weight=1
 ```
 
-- **[PICA8 Configuring QoS scheduler :link:](https://docs.pica8.com/display/PicOS211sp/Configuring+QoS+scheduler)**
-- **[基於Open vSwitch的傳統限速和SDN限速:link:](https://www.sdnlab.com/23289.html)**
-- **[Open vSwitch之QoS的實現 :link:](https://www.sdnlab.com/19208.html)**
-- **[OVS QoS流量控制 (DPDK):link:](https://blog.csdn.net/sinat_20184565/article/details/93376574)**
 
 ---
 

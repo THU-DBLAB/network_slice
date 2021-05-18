@@ -17,25 +17,27 @@
 ---
 
 - ## Environment requirement
-*    **ubuntu** &nbsp;&nbsp;**`18.04`**
+*    **ubuntu** &nbsp;&nbsp;**`18.04` or lastest**
 *    **devstack** **`lastest`** [:link:](https://docs.openstack.org/devstack/latest/)
 
 ---
 
-```bash=
+```bash
+# update and upgrade
 $ sudo apt update && sudo apt upgrade -y
 $ sudo apt install -y vim net-tools git
 ```
-```bash=
+```bash
 # add user name=stack
 $ sudo useradd -s /bin/bash -d /opt/stack -m stack
 $ echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
 $ sudo su - stack
 ```
 
-```bash=
+```bash
 $ git clone https://opendev.org/openstack/devstack
 $ cd devstack
+# copy the local.conf file
 $ cp samples/local.conf .
 
 # find the device's IPv4
@@ -55,16 +57,17 @@ ADMIN_PASSWORD=secret
 DATABASE_PASSWORD=$ADMIN_PASSWORD
 RABBIT_PASSWORD=$ADMIN_PASSWORD
 SERVICE_PASSWORD=$ADMIN_PASSWORD
-HOST_IP=10.0.2.15
+HOST_IP=device_IP
 ```
 
-```bash=
+```bash
+# edit inc/python
 $ vim inc/python
 ```
 
 - #### inc/python
 
-```text
+```bash
 # at line 198 add --ignore-installed
 # Turn
 $cmd_pip $upgrade \
@@ -75,11 +78,15 @@ $cmd_pip $upgrade --ignore-installed \
     <img style="border-style:1px;border-style:double;border-color:#8C8C8C" src="https://imgur.com/wIwYQ3G.png" width="500"/>
 </p>
 
-- ### **Install devstack**
-```bash=
+- ### **Run devstack**
+```bash
+# install openstack
 $ sudo chown -R stack:stack /opt/stack
 $ ./stack.sh
 ```
+
+**If there is Permission Error, Run ```$ sudo chown -R stack:stack /opt/stack``` and ```$ ./stack.sh``` again.** 
+
 ---
 - ### **Install Finish**
 
@@ -129,7 +136,7 @@ Save the ```name.pem``` file
 
 **Project -> Compute -> Images -> Create Image** 
 
-```bash=
+```bash
 # Download ubuntu bionic server image
 $ wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
 ```
@@ -178,7 +185,7 @@ $ wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd
 
 - ## SSH into Created Instance
 
-```bash=
+```bash
 $ ssh -i /path/my-key-pair.pem ubuntu@IP-address
 # set DNS
 $ sudo vim /etc/resolv.conf
@@ -190,7 +197,7 @@ $ sudo vim /etc/resolv.conf
 </p>
 
 
-```bash=
+```bash
 $ sudo apt update
 $ sudo apt install iperf3 -y
 ```
@@ -201,14 +208,14 @@ $ sudo apt install iperf3 -y
 
 ---
 
-```bash=
+```bash
 # or run a web server
 $ sudo apt install apache2
 $ sudo mv /var/www/html/index.html /var/www/html/index.html.backup
 $ sudo vim /var/www/html/index.html
 ```
 - #### index.html
-```htmlembedded=
+```htmlembedded
 <!DOCTYPE html>
 <html>
 <head>

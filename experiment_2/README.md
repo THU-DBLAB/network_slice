@@ -437,3 +437,16 @@ $ iperf -c 10.0.0.1 -i 2
 </p>
 
 :pushpin: **Transmission Bandwidth between h1 and h2 does not restrict in 10Mbps.**
+
+---
+
+# :bulb: Hint :
+1.  ```$ ryu-manager --verbose ryu/ryu/app/gui_topology/gui_topology.py ryu/ryu/app/simple_switch_13.py``` 
+- where ```--verbose``` show debug output, ```ryu/ryu/app/gui_topology/gui_topology.py``` is running ryu with Topology function, ```ryu/ryu/app/simple_switch_13.py``` is for simple_switch13 function. 
+**[simple_switch explanation :link:](https://gist.github.com/aweimeow/d3662485aa224d298e671853aadb2d0f)**
+
+2. ```$ sudo mn --mac --switch ovs,protocols=OpenFlow13 --controller remote```
+- where ```--mac``` is for automatically set host MACs, ```--switch ovs,protocols=OpenFlow13``` set the running switch as Openvswitch and set protocol as OpenFlow13, ```--controller remote``` set controller as remote for ryu.
+
+3. ```$ sudo mn --custom network_slice/experiment_2/task2_topo.py --topo mytopo --mac --switch ovs,protocols=OpenFlow13 --controller remote```
+- where ```--custom network_slice/experiment_2/task2_topo.py``` is the custom topology filepath, ```--topo mytopo``` set as same as name in topology file.
